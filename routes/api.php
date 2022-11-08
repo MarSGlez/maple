@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/books', [\App\Http\Controllers\Catalogs\BooksController::class, 'api'])->name('list.books');
+Route::get('/categories', [\App\Http\Controllers\Catalogs\CategoriesController::class, 'api'])->name('list.categories');
+Route::get('/authors', [\App\Http\Controllers\Catalogs\AuthorsController::class, 'api'])->name('list.authors');
+Route::get('/users', [\App\Http\Controllers\Catalogs\UsersController::class, 'api'])->name('list.users');

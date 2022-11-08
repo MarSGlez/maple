@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +16,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(!User::where('email', 'maple@maple.com')->exists())
+        User::create([
+            'name' => 'Maple',
+            'email' =>  'maple@maple.com',
+            'password' => Hash::make('maple'),
+            'email_verified_at' => now(),
+        ]);
+
+    return redirect('/dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/dashboard/books', [\App\Http\Controllers\Catalogs\BooksController::class, 'index'])->name('index.book');
+    Route::get('/dashboard/categories', [\App\Http\Controllers\Catalogs\CategoriesController::class, 'index'])->name('index.categories');
+    Route::get('/dashboard/authors', [\App\Http\Controllers\Catalogs\AuthorsController::class, 'index'])->name('index.authors');
+    Route::get('/dashboard/users', [\App\Http\Controllers\Catalogs\UsersController::class, 'index'])->name('index.users');
+
+});
+
+
 
 require __DIR__.'/auth.php';
 
