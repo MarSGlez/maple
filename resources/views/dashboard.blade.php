@@ -1,17 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.auth')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
+@section('content')
+    <div class="row justify-content-left pl-3 pb-3">
+        <div class="col-md-8 pt-3">
+            <h2>WELCOME TO OUR SYSTEM</h2>
         </div>
     </div>
-</x-app-layout>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+@endsection
+@section('scripts')
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="/js/dashboard-charts.js"></script>
+@endsection
