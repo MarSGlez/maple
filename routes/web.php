@@ -26,3 +26,7 @@ require __DIR__.'/auth.php';
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resources([
+    'books' => App\Http\Controllers\BooksController::class,
+]);
+Route::post('api', [App\Http\Controllers\BooksController::class, 'api']);

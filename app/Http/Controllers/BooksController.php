@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Books;
 
 class BooksController extends Controller
 {
@@ -29,7 +30,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $books = Books::all();
+        return view("Books.index", compact('books'));
     }
 
     /**
@@ -37,6 +39,9 @@ class BooksController extends Controller
      */
     public function api(Request $request)
     {
-        // 
+        $category = $request->id;
+        $books = Books::where('category', $category)->get();
+    
+        return $books;
     }
 }
